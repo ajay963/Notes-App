@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:notes_app/Theme/colors.dart';
 
 class PurpleTheme {
-  static ThemeData lightThme = ThemeData(
+  static ThemeData lightTheme = ThemeData(
       backgroundColor: kLightBG,
       cardColor: kLightCard,
       iconTheme: IconThemeData(color: kLightBG, size: 24),
@@ -11,6 +11,7 @@ class PurpleTheme {
           headline1: TextStyle(
               fontFamily: GoogleFonts.alef().fontFamily,
               fontSize: 28,
+              fontWeight: FontWeight.w900,
               color: kUltraDarkGrey),
           headline2: TextStyle(
             fontFamily: GoogleFonts.roboto().fontFamily,
@@ -19,6 +20,10 @@ class PurpleTheme {
           ),
           headline3: TextStyle(
               fontFamily: GoogleFonts.alef().fontFamily,
+              fontSize: 20,
+              color: kMediumGrey),
+          subtitle1: TextStyle(
+              fontFamily: GoogleFonts.roboto().fontFamily,
               fontSize: 20,
               color: kMediumGrey),
           headline4: TextStyle(
