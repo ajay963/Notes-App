@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:notes_app/Theme/colors.dart';
 import 'package:notes_app/screens/Home.dart';
 import 'package:notes_app/widgets/animations.dart';
+import 'package:notes_app/widgets/buttons.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
     final TextTheme txtTheme = Theme.of(context).textTheme;
-    final IconThemeData iconTheme = Theme.of(context).iconTheme;
+    SystemChrome.setEnabledSystemUIOverlays([]);
     return Material(
       child: SafeArea(
         child: SingleChildScrollView(
@@ -30,40 +30,12 @@ class LoginScreen extends StatelessWidget {
                 style: txtTheme.headline3,
               ),
               SizedBox(height: 30),
-              InkWell(
+              CustomButtons(
+                buttonSize: screenSize.width * 0.7,
                 onTap: () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) => HomeScreen())),
-                child: Ink(
-                  // splashColor: Colors.black,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.google,
-                        color: iconTheme.color,
-                        size: iconTheme.size,
-                      ),
-                      Text(
-                        'Google SignIn',
-                        style: TextStyle(
-                            fontFamily: GoogleFonts.roboto().fontFamily,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900,
-                            color: Theme.of(context).backgroundColor),
-                      )
-                    ],
-                  ),
-                  height: 50,
-                  width: screenSize.width * 0.7,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(
-                          colors: [kdeepMagenta, kMagenta],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight)),
-                ),
+                label: 'Google SignIn',
+                icon: FontAwesomeIcons.google,
               )
             ],
           ),

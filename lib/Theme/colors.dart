@@ -9,8 +9,8 @@ const Color kMagenta = Color(0xffE01171);
 const Color kDarkBG = Colors.black;
 const Color kLightBG = Color(0xffeEeEeE);
 
-const Color kDarkCard = Color(0xffeEeEeE);
-const Color kLightCard = Color(0xff1B1B1B);
+const Color kLightCard = Color(0xffeEeEeE);
+const Color kDarkCard = Color(0xff1B1B1B);
 
 const Color kUltraDarkGrey = Color(0xff1b1b1b);
 const Color kDarkGrey = Color(0xff999999);

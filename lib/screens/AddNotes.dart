@@ -1,14 +1,37 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:notes_app/Theme/colors.dart';
+import 'package:notes_app/backend/dataStruture/notes.dart';
+import 'package:notes_app/backend/dataStruture/providerTest.dart';
+import 'package:notes_app/widgets/buttons.dart';
+import 'package:provider/provider.dart';
 
-class AddNotesScreen extends StatelessWidget {
+class AddNotesScreen extends StatefulWidget {
+  @override
+  _AddNotesScreenState createState() => _AddNotesScreenState();
+}
+
+class _AddNotesScreenState extends State<AddNotesScreen> {
   final TextEditingController _titleCtr = TextEditingController();
+  final MenuItems items = MenuItems();
+
   final TextEditingController _descriptionCtr = TextEditingController();
+  String? _selectedItem;
+
+  @override
+  void initState() {
+    _selectedItem = items.items[0];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final NotesList notes = Provider.of<NotesList>(context);
+
     final TextTheme txtTheme = Theme.of(context).textTheme;
+    final Size screenSize = MediaQuery.of(context).size;
+    SystemChrome.setEnabledSystemUIOverlays([]);
     return Material(
       child: SafeArea(
         child: Padding(
@@ -38,7 +61,47 @@ class AddNotesScreen extends StatelessWidget {
                   hintText: 'Describe your note',
                   txtCtr: _descriptionCtr,
                   maxLines: 4,
-                )
+                ),
+                SizedBox(height: 20),
+                DropdownButton(
+                  value: _selectedItem,
+                  hint: Text('Select a Category', style: txtTheme.subtitle1),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedItem = value.toString();
+                    });
+                    print('$_selectedItem $value');
+                  },
+                  dropdownColor: Theme.of(context).cardColor,
+                  items: items.items.map(
+                    (item) {
+                      return DropdownMenuItem(
+                        value: item,
+                        child: new Text(item),
+                      );
+                    },
+                  ).toList(),
+                ),
+                SizedBox(height: 40),
+                CustomButtons(
+                  label: 'Add Note',
+                  onTap: () {
+                    notes.addNotes(
+                        title: _titleCtr.text.trim(),
+                        notes: _descriptionCtr.text.trim(),
+                        category: _selectedItem);
+                    Navigator.pop(context);
+                  },
+                  buttonSize: screenSize.width * 0.6,
+                  icon: FontAwesomeIcons.pager,
+                ),
+                SizedBox(height: 10),
+                CustomButtons(
+                  label: 'Go Back',
+                  onTap: () => Navigator.pop(context),
+                  buttonSize: screenSize.width * 0.6,
+                  icon: FontAwesomeIcons.backward,
+                ),
               ],
             ),
           ),

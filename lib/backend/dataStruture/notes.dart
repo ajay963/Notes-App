@@ -12,21 +12,7 @@ class Notes {
     required this.category,
   });
 
-  Notes copyWith({
-    String? title,
-    String? notes,
-    DateTime? date,
-    String? category,
-  }) {
-    return Notes(
-      title: title ?? this.title,
-      notes: notes ?? this.notes,
-      date: date ?? this.date,
-      category: category ?? this.category,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
+  Map<String, Object?> toJson() {
     return {
       'title': title,
       'notes': notes,
@@ -35,16 +21,15 @@ class Notes {
     };
   }
 
-  factory Notes.fromMap(Map<String, dynamic> map) {
-    return Notes(
-      title: map['title'],
-      notes: map['notes'],
-      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
-      category: map['category'],
-    );
-  }
+  Notes.fromJson(Map<String, Object?> json)
+      : this(
+          title: json['title']! as String,
+          notes: json['notes']! as String,
+          date: json['date']! as DateTime,
+          category: json['category']! as String,
+        );
+}
 
-  String toJson() => json.encode(toMap());
-
-  factory Notes.fromJson(String source) => Notes.fromMap(json.decode(source));
+class MenuItems {
+  List<String> items = ['Work', 'life', 'Random'];
 }
